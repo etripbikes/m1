@@ -1,0 +1,62 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<div class="block block-related">
+    <div class="block-title">
+       <strong><span><?php echo $this->getSidebarHeading(); ?></span></strong>
+    </div>
+	 <div class="block-content">      	
+			<?php $_productCollection=$this->getLoadedProductCollection() ?>
+			<?php if(!$_productCollection->count()): ?>
+			<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+			<?php else: ?>
+			
+			<?php $_collectionSize = $_productCollection->count() ?>
+			
+			
+			<ol class="mini-products-list" id="block-bestseller">
+			
+			<?php $i=0; foreach ($_productCollection as $_product): ?>	
+			
+			<?php $_product = Mage::getModel('catalog/product')->load($_product->getEntityId()); ?>
+			
+			
+			<li class="item">   
+			
+			<!-- End div class product-block-inner -->
+			
+			<div class="product" style="margin-left: 0px;">
+				<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(70,70) ?>" width="70" height="70" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /></a>
+				<div class="product-details">
+					 <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></p>
+					 
+				
+				
+				 <?php echo $this->getPriceHtml($_product, true) ?>
+				 
+					<?php if($_product->isSaleable()): ?>
+					<p>
+						<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->__('Add to Cart') ?>"   class="addto-cart"><?php echo $this->__('Add to Cart') ?></a>
+					</p>
+					<?php endif; ?>
+				 
+				</div>
+			</div>
+			</li>
+			
+			
+			
+			
+			
+			<?php endforeach ?>
+			</ol>
+			<div class="actions"><a href="<?php echo $this->getUrl('') ?>bestseller"><?php echo $this->__('See All') ?></a></div>
+			<script type="text/javascript">decorateList('block-bestseller', 'none-recursive')</script>
+			
+			<?php endif; ?>
+	</div>	
+</div>

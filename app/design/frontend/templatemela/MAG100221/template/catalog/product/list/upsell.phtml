@@ -1,0 +1,116 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if(count($this->getItemCollection()->getItems())): ?>
+<div class="box-collateral box-up-sell">
+   <div class="category-title"><h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2></div>
+    <div class="" id="upsell-product-table">
+    <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>  
+	<?php  
+		$_collectionSize = count($this->getItemCollection()->getItems());
+	?> 
+	<?php 
+		$sliderFor = 4;
+		$productCount = $_collectionSize; 
+	?>
+	
+	<?php if ($productCount >= $sliderFor): ?>
+		<div class="customNavigation">
+			<a class="btn prev">&nbsp;</a>
+			<a class="btn next">&nbsp;</a>
+		</div>	
+	<?php endif; ?>
+	 <ul class="<?php if ($productCount >= $sliderFor){?>product-carousel<?php }else{?>products-grid<?php }?>" id="<?php if ($productCount >= $sliderFor){?>upsell-carousel<?php }else{?>upsell-grid<?php }?>">		 
+			<?php $this->resetItemsIterator() ?>
+			<?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>        
+				<?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+					<?php if($_link=$this->getIterableItem()): ?>
+					 <li class="item <?php if ($productCount >= $sliderFor){?>slider-item<?php }else{?>product-items<?php }?>">
+						<div class="product-block">
+						<div class="product-block-inner">
+						
+						<div class="product-image-inner">
+						<a href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>" class="product-image">
+			<?php 
+			   $productId = $_link->getId();
+				$_product = Mage::getModel('catalog/product')->load($productId);
+				
+			  ?>
+	<img class="remover-image" id="product-collection-image-<?php echo $_product->getId(); ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(241,241); ?>" alt="" />
+		<img  class="hover-image" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(241,241); ?>" width="241" height="241" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'thumbnail'), null, true) ?>" />
+
+</a>
+
+
+						<?php if($this->helper('framework')->isNewProduct($_product)):?>
+					<div class="new-label"><?php echo $this->__('New') ?></div>
+				<?php endif; ?>
+				
+				<?php if($this->helper('framework')->isSpecialProduct($_product)):?>
+					<div class="sale-label"><span class="sale-effect"><?php echo $this->__('Sale') ?></span></div>
+				<?php endif; ?>
+
+
+
+						<ul class="add-to-links">
+						<li class="rating-stars"><?php echo $this->getReviewsSummaryHtml($_product, 'short') ?></li>
+                      <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                       <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist" title="<?php echo $this->__('Add to Wishlist') ?>"><?php /*echo $this->__('Add to Wishlist')*/ ?></a></li>
+                       <?php endif; ?>
+					   	
+						
+						<li>
+						 <div class="actions">
+						<?php if($_product->isSaleable()): ?>
+							<button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><?php echo $this->__('Buy Now') ?></span></button>
+						<?php else: ?>
+							<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+						<?php endif; ?>  
+						</div>
+						</li>
+						
+						
+						<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                            <li><a href="<?php echo $_compareUrl ?>" class="link-compare" title="<?php echo $this->__('Add to Compare') ?>"><?php /*echo $this->__('Add to Compare')*/ ?></a></li>
+                        <?php endif; ?>
+						
+						</ul>
+						</div>
+						
+						<h3 class="product-name"><a href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>"><?php echo $this->escapeHtml($_link->getName()) ?></a></h3>
+						<?php echo $this->getPriceHtml($_link, true, '-upsell') ?>
+						
+						</div>
+						</div>					
+					</li>
+					<?php endif; ?>
+				<?php endfor; ?>        
+			<?php endfor; ?>
+		</ul>
+		<span style="display: none; visibility: hidden;" class="upsell_default_width"></span>
+    </div>
+</div>
+<?php endif ?>

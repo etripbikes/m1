@@ -1,0 +1,97 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+
+<div class="special-products-outer">
+<div class="special-products-inner">
+<div class="category-title"><h2><a href="<?php echo $this->getUrl('') ?>specialproducts"><?php echo $this->getHeading(); ?></a></h2></div>
+
+<?php $_productCollection=$this->getProductCollection() ?>
+
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+ 
+	<?php $_collectionSize = $_productCollection->count() ?> 
+	<?php 
+		$sliderFor = 4;
+		$productCount = $_collectionSize; 
+	?> 
+	<?php if ($productCount >= $sliderFor): ?>
+		<div class="customNavigation">
+			<a class="btn prev">&nbsp;</a>
+			<a class="btn next">&nbsp;</a>
+		</div>	
+	<?php endif; ?>	 
+			<ul class="<?php if ($productCount >= $sliderFor){?>product-carousel<?php }else{?>products-grid<?php }?>" id="<?php if ($productCount >= $sliderFor){?>special-carousel<?php }else{?>special-grid<?php }?>">
+  
+		
+   			<?php $i=0; foreach ($_productCollection as $_product):  $i++;?>
+
+            <li class="item <?php if ($productCount >= $sliderFor){?>slider-item<?php }else{?>product-items<?php }?>">
+				<div class="product-block">
+				<div class="product-block-inner">
+
+
+			<div class="product-image-inner">
+               <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+<?php 
+			   $productId = $_product->getId();
+				$_product = Mage::getModel('catalog/product')->load($productId);
+				
+			  ?>
+		<img class="remover-image" id="product-collection-image-<?php echo $_product->getId(); ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(315,315); ?>" alt="" />
+		<img  class="hover-image" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(315,315); ?>" width="315" height="315" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'thumbnail'), null, true) ?>" />
+				</a>
+			   
+			   <?php if($this->helper('framework')->isNewProduct($_product)):?>
+					<div class="new-label"><?php echo $this->__('New') ?></div>
+				<?php endif; ?>
+				
+				<?php if($this->helper('framework')->isSpecialProduct($_product)):?>
+					<div class="sale-label"><span class="sale-effect"><?php echo $this->__('Sale') ?></span></div>
+				<?php endif; ?>		
+			   
+
+				<ul class="add-to-links">
+				<li class="rating-stars"><?php echo $this->getReviewsSummaryHtml($_product, 'short') ?></li>
+                      <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                       <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist" title="<?php echo $this->__('Add to Wishlist') ?>"><?php /*echo $this->__('Add to Wishlist')*/ ?></a></li>
+                       <?php endif; ?>
+					   
+					   <li> 	
+				<div class="actions">
+					<?php if($_product->isSaleable()): ?>
+					<button type="button" title="<?php echo $this->__('Buy Now') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Buy Now') ?></span></span></button>
+					<?php else: ?>
+					<p class="availability out-of-stock" title="<?php echo $this->__('Out of stock') ?>"><span><?php echo $this->__('Out of stock') ?></span></p>
+					<?php endif; ?>  							                  
+				</div>
+				 </li>
+					   
+                       <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                       <li><a href="<?php echo $_compareUrl ?>" class="link-compare" title="<?php echo $this->__('Add to Compare') ?>"><?php /*echo $this->__('Add to Compare')*/ ?></a></li>
+                        <?php endif; ?>
+                    </ul>
+	 
+				</div>
+					
+				<h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><?php echo $this->escapeHtml($_product->getName())?></a></h2>
+				
+				<?php echo $this->getPriceHtml($_product, true) ?>
+				 
+				</div><!-- End div class product-block-->
+				</div><!-- End div class product-block-inner -->		
+            </li>
+
+        <?php endforeach ?>        
+        </ul>
+		<span style="display: none; visibility: hidden;" class="special_default_width"></span>
+<?php endif; ?>
+</div>
+</div>
+

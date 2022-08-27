@@ -1,0 +1,84 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+ 
+<header class="header-container">  
+	
+	     <div class="header-top">
+	        <div class="header">
+	        <div class="header-top-left">
+		        <?php if ($this->getIsHomePage()):?>
+				<h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+				<?php else: ?>
+				<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+				<?php endif?>
+
+			    </div>
+				<div class="header-top-right">
+
+					<div class="Quick-info">
+					<span class="shipping"><a href="#"> <?php echo $this->__('Envios a todo el pais');?></a></span>	
+					<span class="offers"><a href="#"> <?php echo $this->__('Precio preventa');?></a></span>
+					</div>
+						<div class="quick-access">
+					        <div class="header-cart"><?php echo $this->getChildHtml('minicart_head') ?></div>
+					        <div class="tm_headerlinkmenu">
+					            <div class="tm_headerlinks_inner"><div class="headertoggle_img">&nbsp;<div class="icon-tittle">Cuenta</div></div></div>
+					             <div class="toggle">
+					                 <div class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?><?php echo $this->getAdditionalHtml() ?></div>
+					                    <?php echo $this->getChildHtml('topLinks'); ?>
+					                    <?php echo $this->getChildHtml('currency_top') ?>
+					                   <?php echo $this->getChildHtml('store_language') ?>
+					                 </div>
+					              </div>
+					     </div>
+					  <?php echo $this->getChildHtml('topContainer'); ?>
+				</div>
+
+				</div>
+			</div>
+	
+	<div class="header-bottom">
+	   <div class="header">
+		 <div class="header-bottom-left">	
+			<?php echo $this->getChildHtml('topMenu') ?>
+		 </div>
+		
+		 <div class="header-bottom-right">
+			<?php echo $this->getChildHtml('topSearch') ?>
+		
+		  </div>			
+		</div>	
+				
+	</div>
+	
+
+	
+</header>
+
