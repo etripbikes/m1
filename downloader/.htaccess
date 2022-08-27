@@ -1,3 +1,10 @@
+# 2022-08-27 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+# 1) `magereport`: «/downloader open»: https://github.com/etripbikes/m1/issues/1
+# 2) https://etripbikes.com/downloader
+# 3) https://support.hypernode.com/en/best-practices/security/how-to-protect-magento-against-brute-force-attacks#2.-Secure-/downloader-and-/rss
+order deny,allow
+deny from all
+allow 176.89.88.249
 <IfModule mod_deflate.c>
 	RemoveOutputFilter DEFLATE
 	RemoveOutputFilter GZIP
