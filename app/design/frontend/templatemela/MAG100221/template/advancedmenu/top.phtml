@@ -2,44 +2,44 @@
 <?php if(count($_categories)): ?>
 <nav class="nav-container">
 	<div class="nav-inner">
-    <div id="advancedmenu">
-        <?php if ($this->showHomeLink()) : ?>
-        <div class="menu">
-            <div class="parentMenu menu0 home_link">
-                <a href="<?php echo $this->getUrl('') ?>">
-                    <span><?php echo $this->__('Inicio'); ?></span>
-                </a>
-            </div>
-        </div>
-        <?php endif ?>
- 		<?php $m=0; ?>
-         <?php $n=0; ?>
-        <?php foreach ($_categories as $_category): ?>
+	<div id="advancedmenu">
+		<?php if ($this->showHomeLink()) : ?>
+		<div class="menu">
+			<div class="parentMenu menu0 home_link">
+				<a href="<?php echo $this->getUrl('') ?>">
+					<span><?php echo $this->__('Inicio'); ?></span>
+				</a>
+			</div>
+		</div>
+		<?php endif ?>
+		<?php $m=0; ?>
+		 <?php $n=0; ?>
+		<?php foreach ($_categories as $_category): ?>
 		<?php $m++; 
-            if($m<5){	 ?>
-            <?php echo $this->drawAdvancedMenuItem($_category) ?>
+			if($m<5){	 ?>
+			<?php echo $this->drawAdvancedMenuItem($_category) ?>
 		<?php }else{ ?>
 		<div class="menu seeall">
-            <div class="subparentMenu menu0 seeall">
+			<div class="subparentMenu menu0 seeall">
 			
-                <a href="<?php echo $this->getUrl('') ?>">
-                    <span><?php echo $this->__('More'); ?></span>
-                </a>
-                <div class="subparentmenu-hover">
+				<a href="<?php echo $this->getUrl('') ?>">
+					<span><?php echo $this->__('More'); ?></span>
+				</a>
+				<div class="subparentmenu-hover">
 				<div class="super-sub">
-               <?php foreach ($_categories as $_category): ?>
-                <?php $n++;
+			   <?php foreach ($_categories as $_category): ?>
+				<?php $n++;
 				if($n<5){}else{ ?>
-                 <?php echo $this->drawAdvancedMenuItem($_category) ?>
-                 <?php } ?>
-               <?php endforeach ?>
-               </div>
-                </div>
-            </div>
-        </div>				
+				 <?php echo $this->drawAdvancedMenuItem($_category) ?>
+				 <?php } ?>
+			   <?php endforeach ?>
+			   </div>
+				</div>
+			</div>
+		</div>
 			<?php break;	}?>
-        <?php endforeach ?>
-        
+		<?php endforeach ?>
+
 
 		
 		<?php if ($this->isActivecustomBlock()) : 
@@ -60,7 +60,7 @@
 		
 		
 		<div class="clearBoth"></div>
-    </div>
+	</div>
 	
 	<!-- Code for responsive menu start -->
 	<?php $_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
