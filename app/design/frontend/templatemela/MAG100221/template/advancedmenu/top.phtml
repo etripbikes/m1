@@ -1,5 +1,23 @@
-<?php $_categories = $this->getStoreCategories() ?>
-<?php if(count($_categories)): ?>
+<?php
+/**
+ * 2022-08-28 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+ * 1) «count(): Parameter must be an array or an object that implements Countable
+ * in app/design/frontend/templatemela/MAG100221/template/advancedmenu/top.phtml on line 2»:
+ * https://github.com/etripbikes/m1/issues/6
+ * 2) $_categories could be a @see Countable or an empty array:
+ * @see \Mage_Catalog_Helper_Category::getStoreCategories():
+ *		if (!$category->checkId($parent)) {
+ *			if ($asCollection) {
+ *				return new Varien_Data_Collection();
+ *			}
+ *			return array();
+ *		}
+ * https://github.com/OpenMage/magento-mirror/blob/1.9.4.5/app/code/core/Mage/Catalog/Helper/Category.php#L74-L79
+ */
+/** @var Megnor_AdvancedMenu_Block_Topmenu $this */
+/** @var Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection|[] $_categories */
+$_categories = $this->getStoreCategories();
+if($_categories && $_categories->count()): ?>
 <nav class="nav-container">
 	<div class="nav-inner">
 	<div id="advancedmenu">
