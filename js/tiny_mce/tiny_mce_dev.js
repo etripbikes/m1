@@ -55,7 +55,7 @@
 	};
 
 	// Firebug
-	// 2022-08-27 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+	// 2022-08-27 Dmitry Fedyuk https://github.com/dmitrii-fediuk
 	// "`magereport`: «Credit Card Hijack detected?»": https://github.com/etripbikes/m1/issues/2
 	/*if (query.debug && !("console" in window)) {
 		include('firebug/firebug-lite.js');
